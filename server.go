@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -15,6 +16,7 @@ func main() {
 		ReadTimeout:  time.Minute,
 		WriteTimeout: time.Minute,
 	}
+	fmt.Println("open your browser on http://127.0.0.1:8080")
 	log.Fatal(s.ListenAndServe())
 }
 
