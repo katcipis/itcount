@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"syscall/js"
 	"time"
 )
@@ -26,6 +27,8 @@ func main() {
 }
 
 func count() string {
+	const DAY_DURATION = 24 * time.Hour
+
 	year := 2019
 	month := time.January
 	day := 30
@@ -37,10 +40,23 @@ func count() string {
 
 	deadline := time.Date(year, month, day, hour, min, sec, nsec, location)
 	until := time.Until(deadline)
-	hours := int(until.Hours())
-	minutes := int(until.Minutes())
-	seconds := int(until.Seconds())
-	days := hours / 24
+	var elapsed time.Duration
 
-	return fmt.Sprintf("dias: %d\nhoras: %d\nminutos: %d\nsegundos: %d", days, hours, minutes, seconds)
+	days := int64(math.Floor(until.Hours() / 24.0))
+	elapsed += time.Duration(time.Duration(days) * DAY_DURATION)
+
+	hours := int64(math.Floor(time.Duration(until - elapsed).Hours()))
+	elapsed += time.Hour * time.Duration(hours)
+
+	minutes := int64(math.Floor(time.Duration(until - elapsed).Minutes()))
+	elapsed += time.Minute * time.Duration(minutes)
+
+	seconds := int64(math.Floor(time.Duration(until - elapsed).Seconds()))
+
+	return fmt.Sprintf(
+		"giorni: %d\nore: %d\nminuti: %d\nsecondi: %d",
+		days,
+		hours,
+		minutes,
+		seconds)
 }
