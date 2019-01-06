@@ -22,7 +22,7 @@ func main() {
 		val := count()
 		fmt.Println(val)
 		counterVal.Set("innerText", val)
-		time.Sleep(time.Second)
+		time.Sleep(500 * time.Millisecond)
 	}
 }
 
