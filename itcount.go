@@ -36,6 +36,7 @@ func count() string {
 	location := time.UTC
 
 	deadline := time.Date(year, month, day, hour, min, sec, nsec, location)
-
-	return time.Until(deadline).String()
+	until := time.Until(deadline)
+	days := int(until.Hours() / 24)
+	return fmt.Sprintf("dias: %d", days)
 }
