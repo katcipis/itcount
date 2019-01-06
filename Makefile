@@ -13,6 +13,6 @@ app:
 	GOOS=js GOARCH=wasm go build -o html/itcount.wasm ./itcount.go
 
 .PHONY: cleanup
-cleanup:
+clean:
 	rm server
 	rm ./html/*.wasm

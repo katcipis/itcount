@@ -39,22 +39,25 @@ func count() string {
 	location := time.UTC
 
 	deadline := time.Date(year, month, day, hour, min, sec, nsec, location)
-	until := time.Until(deadline)
-	var elapsed time.Duration
+	timeUntilGoing := time.Until(deadline)
 
-	days := int64(math.Floor(until.Hours() / 24.0))
-	elapsed += time.Duration(time.Duration(days) * DAY_DURATION)
+	days := int64(math.Floor(timeUntilGoing.Hours() / 24.0))
+	timeUntilGoing -= time.Duration(time.Duration(days) * DAY_DURATION)
 
-	hours := int64(math.Floor(time.Duration(until - elapsed).Hours()))
-	elapsed += time.Hour * time.Duration(hours)
+	hours := int64(math.Floor(timeUntilGoing.Hours()))
+	timeUntilGoing -= time.Hour * time.Duration(hours)
 
-	minutes := int64(math.Floor(time.Duration(until - elapsed).Minutes()))
-	elapsed += time.Minute * time.Duration(minutes)
+	minutes := int64(math.Floor(timeUntilGoing.Minutes()))
+	timeUntilGoing -= time.Minute * time.Duration(minutes)
 
-	seconds := int64(math.Floor(time.Duration(until - elapsed).Seconds()))
+	seconds := int64(math.Floor(timeUntilGoing.Seconds()))
 
 	return fmt.Sprintf(
-		"giorni: %d\nore: %d\nminuti: %d\nsecondi: %d",
+		`
+giorni  : %d
+ore     : %d
+minuti  : %d
+secondi : %d`,
 		days,
 		hours,
 		minutes,
