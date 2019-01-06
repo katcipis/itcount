@@ -18,9 +18,7 @@ func main() {
 	counterDiv.Call("appendChild", counterVal)
 
 	for {
-		fmt.Println("start loop")
 		val := count()
-		fmt.Println(val)
 		counterVal.Set("innerText", val)
 		time.Sleep(500 * time.Millisecond)
 	}
@@ -32,14 +30,17 @@ func count() string {
 	year := 2019
 	month := time.January
 	day := 30
-	hour := 0
+	hour := 12
 	min := 0
 	sec := 0
 	nsec := 0
-	location := time.UTC
+	location := time.Local
 
 	deadline := time.Date(year, month, day, hour, min, sec, nsec, location)
-	timeUntilGoing := time.Until(deadline)
+	// WHY: Timezone stuff dont work well on js syscall, so I cant load proper location =(
+	// The solution for now is to compensate my timezone manually =(
+	const tzdiff = time.Hour * 2
+	timeUntilGoing := time.Until(deadline) + tzdiff
 
 	days := int64(math.Floor(timeUntilGoing.Hours() / 24.0))
 	timeUntilGoing -= time.Duration(time.Duration(days) * DAY_DURATION)
