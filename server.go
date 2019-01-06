@@ -25,6 +25,11 @@ func WASMServer(h http.Handler) http.Handler {
 				resp.Header().Set("content-type", "application/wasm")
 			}
 		}
+
+		resp.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		resp.Header().Set("Pragma", "no-cache")
+		resp.Header().Set("Expires", "0")
+
 		h.ServeHTTP(resp, req)
 	})
 }
