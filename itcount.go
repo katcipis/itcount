@@ -30,7 +30,7 @@ func count() string {
 	year := 2019
 	month := time.January
 	day := 30
-	hour := 12
+	hour := 0
 	min := 0
 	sec := 0
 	nsec := 0
