@@ -1,2 +1,3 @@
 *.wasm
 server
+html/wasm_exec.js
