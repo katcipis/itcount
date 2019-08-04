@@ -1,18 +1,14 @@
-all: app server
+all: app
 
 .PHONY: run
-run: app server
-	./server
-
-.PHONY: server
-server:
-	go build -o server ./server.go
+run: app
+	echo "starting server listening on http://localhost:8080"
+	shareh -port 8080
 
 .PHONY: app
-app:
-	GOOS=js GOARCH=wasm go build -o html/itcount.wasm ./itcount.go
+app: jsuport
+	GOOS=js GOARCH=wasm go build -o happycount.wasm happycount.go
 
-.PHONY: cleanup
-clean:
-	rm server
-	rm ./html/*.wasm
+.PHONY: jsupport
+jsuport:
+	cp $(GOROOT)/misc/wasm/wasm_exec.js wasm_exec.js
