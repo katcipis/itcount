@@ -10,7 +10,7 @@ server:
 
 .PHONY: app
 app:
-	GOOS=js GOARCH=wasm go build -o html/itcount.wasm ./itcount.go
+	GOOS=js GOARCH=wasm go build -o html/happycount.wasm ./happycount.go
 
 .PHONY: cleanup
 clean:

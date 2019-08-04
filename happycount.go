@@ -1,4 +1,5 @@
 //+build js,wasm
+
 package main
 
 import (
@@ -28,9 +29,9 @@ func count() string {
 	const DAY_DURATION = 24 * time.Hour
 
 	year := 2019
-	month := time.January
-	day := 30
-	hour := 0
+	month := time.August
+	day := 15
+	hour := 12
 	min := 0
 	sec := 0
 	nsec := 0
